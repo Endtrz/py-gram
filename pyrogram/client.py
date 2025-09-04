@@ -57,6 +57,7 @@ from .file_id import FileId, FileType, ThumbnailSource
 from .mime_types import mime_types
 from .parser import Parser
 from .session.internals import MsgId
+from .resolve_peer import ResolvePeer
 
 log = logging.getLogger(__name__)
 
@@ -297,6 +298,10 @@ class Client(Methods):
         self.last_update_time = datetime.now()
 
         self.loop = asyncio.get_event_loop()
+
+    async def resolve_peer(self, id):
+        obj = ResolvePeer(self)
+        return await obj.resolve_peer(id)
 
     def __enter__(self):
         return self.start()
