@@ -62,7 +62,7 @@ from .resolve_peer import ResolvePeer
 log = logging.getLogger(__name__)
 
 
-class Client(Methods):
+class PyrogramClient(Methods):
     """Pyrogram Client, the main means for interacting with Telegram.
 
     Parameters:
@@ -222,6 +222,7 @@ class Client(Methods):
         workdir: str = WORKDIR,
         plugins: dict = None,
         parse_mode: "enums.ParseMode" = enums.ParseMode.DEFAULT,
+        pm: "enums.ParseMode" = enums.ParseMode.DEFAULT,
         no_updates: bool = None,
         takeout: bool = None,
         sleep_threshold: int = Session.SLEEP_THRESHOLD,
@@ -298,10 +299,6 @@ class Client(Methods):
         self.last_update_time = datetime.now()
 
         self.loop = asyncio.get_event_loop()
-
-    async def resolve_peer(self, id):
-        obj = ResolvePeer(self)
-        return await obj.resolve_peer(id)
 
     def __enter__(self):
         return self.start()
@@ -1032,6 +1029,15 @@ class Client(Methods):
 
     def guess_extension(self, mime_type: str) -> Optional[str]:
         return self.mimetypes.guess_extension(mime_type)
+
+class Client(PyrogramClient):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    async def resolve_peer(self, id):
+        obj = ResolvePeer(self)
+        return await obj.resolve_peer(id)
+
 
 
 class Cache:
