@@ -47,10 +47,6 @@ Source = "https://github.com/Endtrz/py-gram"
 Issues = "https://github.com/Endtrz/py-gram/issues"
 Community = "https://t.me/Endxoz"
 
-[project.dependencies]
-pyaes = "<=1.6.1"
-pysocks = "<=1.7.1"
-
 [project.optional-dependencies]
 dev = [
     "keyring<=25.1.0",
